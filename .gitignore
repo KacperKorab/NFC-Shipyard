@@ -1,3 +1,5 @@
+#Example fleet files
+*.fleet
 # Compiled class file
 *.class
 

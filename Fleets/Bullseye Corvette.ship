@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<Ship xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SaveID xsi:nil="true" />
+  <Key>852df55a-8a37-4c95-8bce-2b74403e991a</Key>
+  <Name>Bullseye Corvette</Name>
+  <Cost>270</Cost>
+  <Number>0</Number>
+  <SymbolOption>0</SymbolOption>
+  <HullType>Stock/Sprinter Corvette</HullType>
+  <SocketMap>
+    <HullSocket>
+      <Key>wDsRnL5nKkyYvKgD6VcPHg</Key>
+      <ComponentName>Stock/E90 'Blanket' Jammer</ComponentName>
+    </HullSocket>
+    <HullSocket>
+      <Key>Z48ot_dQfkWb6AVYjaM_gA</Key>
+      <ComponentName>Stock/RF101 'Bullseye' Radar</ComponentName>
+    </HullSocket>
+    <HullSocket>
+      <Key>IUdNSVZm2Eu9n3F5HnSAng</Key>
+      <ComponentName>Stock/VLS1-23 Launcher</ComponentName>
+      <ComponentData xsi:type="CellLauncherData">
+        <MissileLoad>
+          <MagSaveData>
+            <MagazineKey>tbyb0uAfOECCJYDQhuw0DA</MagazineKey>
+            <MunitionKey>Stock/EA12 Chaff Decoy</MunitionKey>
+            <Quantity>7</Quantity>
+          </MagSaveData>
+          <MagSaveData>
+            <MagazineKey>8vucWe0c4kqBH04Y3rg1hg</MagazineKey>
+            <MunitionKey>Stock/SDM-112 Riposte</MunitionKey>
+            <Quantity>4</Quantity>
+          </MagSaveData>
+        </MissileLoad>
+      </ComponentData>
+    </HullSocket>
+    <HullSocket>
+      <Key>XPaYCjBqdEqBxEIsVLP0oA</Key>
+      <ComponentName>Stock/Basic CIC</ComponentName>
+    </HullSocket>
+    <HullSocket>
+      <Key>rXO8xwG1MkqzI_2pU-O_qQ</Key>
+      <ComponentName>Stock/Small DC Locker</ComponentName>
+    </HullSocket>
+    <HullSocket>
+      <Key>GefqwCQzg0qXA3EFRmDtPw</Key>
+      <ComponentName>Stock/Berthing</ComponentName>
+    </HullSocket>
+    <HullSocket>
+      <Key>4WpJyiOKVEqCwR99l47MkA</Key>
+      <ComponentName>Stock/FR3300 Micro Reactor</ComponentName>
+    </HullSocket>
+    <HullSocket>
+      <Key>4EHx4mQhNUi-WuuQtQF5fA</Key>
+      <ComponentName>Stock/FM200 Drive</ComponentName>
+    </HullSocket>
+  </SocketMap>
+  <WeaponGroups>
+    <WepGroup Name="Blanket Jammer">
+      <MemberKeys>
+        <string>wDsRnL5nKkyYvKgD6VcPHg</string>
+      </MemberKeys>
+    </WepGroup>
+  </WeaponGroups>
+</Ship>
