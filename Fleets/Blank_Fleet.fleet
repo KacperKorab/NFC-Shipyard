@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<Fleet xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <Name>Blank Fleet</Name>
+    <Version>2</Version>
+    <TotalPoints>165</TotalPoints>
+    <FactionKey>Stock/Alliance</FactionKey>
+    <Ships>
+        <Ship>
+            <SaveID xsi:nil="true"/>
+            <Key>35c098c4-6bb6-4929-b6b0-063299a1bbf0</Key>
+            <Name>Elk and Aphid</Name>
+            <Cost>165</Cost>
+            <Number>912</Number>
+            <SymbolOption>0</SymbolOption>
+            <HullType>Stock/Raines Frigate</HullType>
+            <SocketMap>
+                <HullSocket>
+                    <Key>98N-YI_1WUOs--qPYlt-7g</Key>
+                    <ComponentName>Stock/Basic CIC</ComponentName>
+                </HullSocket>
+                <HullSocket>
+                    <Key>bRgUlaoQJ0S7M91zMpdAdA</Key>
+                    <ComponentName>Stock/FR4800 Reactor</ComponentName>
+                </HullSocket>
+                <HullSocket>
+                    <Key>Jmtnwo0KQki5QyEPPlBHrA</Key>
+                    <ComponentName>Stock/FM200 Drive</ComponentName>
+                </HullSocket>
+                <HullSocket>
+                    <Key>V42tXibIR0e4u6riIHYZOw</Key>
+                    <ComponentName>Stock/RS35 'Frontline' Radar</ComponentName>
+                </HullSocket>
+            </SocketMap>
+            <WeaponGroups/>
+        </Ship>
+    </Ships>
+</Fleet>
