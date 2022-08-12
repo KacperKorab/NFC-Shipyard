@@ -2,20 +2,19 @@ package nfc.shipyard.nfcs.xmlSerialization.Classes;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class HullSocket {
     @JsonProperty("Key")
     private String key;
@@ -39,6 +38,13 @@ public class HullSocket {
         this.socketName = socketName;
     }
 
+    public static boolean doesComponentFit(HullSocket socket, Component component) {
+        return socket.getHullSocketType() == component.getComponentSocketType()
+                && socket.getSocketSize().getX() >= component.getComponentSize().getX()
+                && socket.getSocketSize().getY() >= component.getComponentSize().getY()
+                && socket.getSocketSize().getZ() >= component.getComponentSize().getZ();
+    }
+
     @Override
     public String toString() {
         return "\nHullSocket{" +
@@ -46,6 +52,5 @@ public class HullSocket {
                 ", componentName='" + componentName + '\'' +
                 '}';
     }
-
 
 }

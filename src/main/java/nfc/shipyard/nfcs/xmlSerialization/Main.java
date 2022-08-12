@@ -1,24 +1,20 @@
 package nfc.shipyard.nfcs.xmlSerialization;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import nfc.shipyard.nfcs.xmlSerialization.Classes.Fleet;
-import nfc.shipyard.nfcs.xmlSerialization.Classes.HullSocket;
-import nfc.shipyard.nfcs.xmlSerialization.Classes.Ship;
+import nfc.shipyard.nfcs.xmlSerialization.Classes.*;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-/*
-TODO
-    Map socketKeys to readable data for the Sprinter
-    add component and socketKey categories
- */
+
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        /*// Load fleet from file and modify
         File file = new File("Fleets/NFCS Sprinter.fleet");
         XmlMapper xmlMapper = new XmlMapper();
         Fleet fleet;
@@ -28,30 +24,35 @@ public class Main {
         catch (IOException e) {
             throw new RuntimeException(e);
         }
-        changeComponent(fleet);
+        modifyFleet(fleet);
+        */
 
-        /*
-        File file = new File("Fleets/NFCS Sprinter.fleet");
-        XmlMapper xmlMapper = new XmlMapper();
-        Fleet fleet = xmlMapper.readValue(file, Fleet.class);
-        System.out.println(fleet+"\n");
-
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        xmlMapper.writeValue(byteArrayOutputStream, fleet);
-        System.out.println(byteArrayOutputStream+"\n");
-
-        Ship ship = fleet.getShips().get(0);
-        HullSocket hullSocket = ship.getSockets().get(9);
-        System.out.println("Changing: "+ hullSocket);
-        hullSocket.setComponentName("Stock/FM200R Drive");
-
-        System.out.println(hullSocket+"\n");
-        System.out.println(fleet+"\n");
-
-         */
+        // Create Fleet
+        Fleet fleet = new Fleet();
+        modifyFleet(fleet);
     }
 
     public static void saveFleet(Fleet fleet, String savePath) {
+        Scanner stringScanner = new Scanner(System.in);
+        System.out.println("Fleet name: " + fleet.getName() +
+                "\nEnter new fleet name:");
+        fleet.setName(stringScanner.nextLine());
+
+        //remove sockets with no components
+        List<Ship> shipList = fleet.getShips();
+        for (Ship ship : shipList) {
+            fleet.setTotalPoints(fleet.getTotalPoints() + ship.getCost());
+            List<HullSocket> socketList = ship.getSockets();
+            List<HullSocket> filledSockets = new ArrayList<>();
+            for (HullSocket socket : socketList) {
+                if (socket.getComponentName() != null) {
+                    filledSockets.add(socket);
+                }
+            }
+            ship.setSockets(filledSockets);
+        }
+        fleet.setShips(shipList);
+
         XmlMapper xmlMapper = new XmlMapper();
         String filename = savePath + fleet.getName() + ".fleet";
         try {
@@ -70,7 +71,7 @@ public class Main {
         }
     }
 
-    public static Fleet changeComponent(Fleet fleet) {
+    public static void modifyFleet(Fleet fleet) {
         /*
         Done
          1. Load File.
@@ -86,7 +87,8 @@ public class Main {
         while (true) {
             Scanner intScanner = new Scanner(System.in);
             System.out.println("Loaded fleet: " + fleet.getName());
-            System.out.println("Enter a number:\n'0' to quit, '1' to view ships, '2' to save fleet.");
+            System.out.println("Enter a number:\n'0' to quit, '1' to view ships," +
+                    " '2' to add new ship, '3' to save fleet.");
             int userInput = intScanner.nextInt();
             if (userInput == 0) break;
             if (userInput == 1) {
@@ -95,7 +97,7 @@ public class Main {
                     System.out.println("Enter '0' to go back, enter ship index to view ship");
                     for (int i = 0; i < shipList.size(); i++) {
                         System.out.println(i + 1 + " : " + shipList.get(i).getName()
-                                + ", " + shipList.get(i).getHullType());
+                                + ", " + shipList.get(i).getHullType() + ", " + shipList.get(i).getCost());
                     }
                     userInput = intScanner.nextInt();
                     if (userInput == 0) break;
@@ -105,11 +107,10 @@ public class Main {
 
                     while (true) {
                         //View components
-                        //TODO Select new component from a list instead of writing name.
                         System.out.println("Enter '0' to go back, enter component index to modify");
                         System.out.println(ship.getName() + " " + ship.getHullType());
                         for (int i = 0; i < hullSockets.size(); i++) {
-                            System.out.println(i + 1 + " : " + hullSockets.get(i).getKey()
+                            System.out.println(i + 1 + " : " + hullSockets.get(i).getSocketName()
                                     + ", " + hullSockets.get(i).getComponentName());
                         }
                         userInput = intScanner.nextInt();
@@ -117,25 +118,59 @@ public class Main {
 
                         //Select component and change it
                         HullSocket hullSocket = hullSockets.get(userInput - 1);
-                        System.out.println("Selected: " + hullSocket.getComponentName() +
-                                "\nEnter new component's name: ");
-                        String newComponentName;
-                        Scanner stringScanner = new Scanner(System.in);
-                        newComponentName = stringScanner.nextLine();
-                        hullSocket.setComponentName("Stock/" + newComponentName);
+                        System.out.println("Selected: " + hullSocket.getSocketName());
+                        System.out.println("Current component: " + hullSocket.getComponentName());
+                        List<Component> allComponents = Component.getComponents();
+                        List<Component> validComponents = new ArrayList<>();
+                        for (Component component : allComponents) {
+                            if (HullSocket.doesComponentFit(hullSocket, component)) {
+                                validComponents.add(component);
+                            }
+                        }
+                        System.out.println("0 : Remove");
+                        for (int i = 0; i < validComponents.size(); i++) {
+                            System.out.println(i + 1 + " : " + validComponents.get(i).getComponentName());
+                        }
+                        userInput = intScanner.nextInt();
+                        if (userInput == 0) {
+                            hullSocket.setComponent(new Component("Remove", 0, 0,
+                                    0, 0, new SocketSize(0, 0, 0)));
+                            hullSocket.setComponentName("");
+                            break;
+                        }
+                        hullSocket.setComponent(validComponents.get(userInput - 1));
+                        hullSocket.setComponentName("Stock/" + validComponents.get(userInput - 1).getComponentName());
+
+                        //Ship cost
+                        for (HullSocket socket : hullSockets) {
+                            if (socket.getComponent() != null) {
+                                ship.setCost(ship.getCost() + socket.getComponent().getComponentCost());
+                            }
+                        }
                     }
                 }
             }
             if (userInput == 2) {
-                Scanner stringScanner = new Scanner(System.in);
-                System.out.println("Fleet name: " + fleet.getName() +
-                        "\nEnter new fleet name:");
-                fleet.setName(stringScanner.nextLine());
-
+                addShipHull(fleet, shipList, intScanner);
+            }
+            if (userInput == 3) {
                 saveFleet(fleet, "Fleets/");
                 break;
             }
         }
-        return fleet;
+    }
+
+    private static void addShipHull(Fleet fleet, List<Ship> shipList, Scanner intScanner) {
+        int userInput;
+        System.out.println("Select an option or enter '0' to go back");
+        System.out.println("1 : Sprinter Corvette");
+        userInput = intScanner.nextInt();
+        switch (userInput) {
+            case 0:
+                break;
+            case 1:
+                System.out.println("Selected: Sprinter Corvette");
+                shipList.add(fleet.createShip("Stock/Sprinter Corvette"));
+        }
     }
 }

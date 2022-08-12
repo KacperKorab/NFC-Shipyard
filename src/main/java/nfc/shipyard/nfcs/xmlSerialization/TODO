@@ -1,0 +1,8 @@
+TODO
+    - have the files generate as xml with .fleet
+    - finish component list
+    - begin working on the website
+
+Pytania:
+- Zapisywanie jako xml
+W jaki sposób zapisać plik konkretnego typu? Podczas zapisywania w nazwie pliku dodaję końcówkę ".fleet" i jak sprawdzam właściwości pliku to jest on plain textem, a chcę żeby był xmlem.

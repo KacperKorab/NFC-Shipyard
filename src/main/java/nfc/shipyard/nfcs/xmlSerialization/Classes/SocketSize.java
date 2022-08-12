@@ -8,11 +8,15 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class SocketSize {
+    /*
+    TODO
+        Compounding costs and berthing/magazine values
+     */
     private int x;
     private int y;
     private int z;
 
-    public boolean doesComponentFit(HullSocket socket, Component component) {
+    public static boolean doesComponentFit(HullSocket socket, Component component) {
         return socket.getSocketSize().getX() >= component.getComponentSize().getX() &&
                 socket.getSocketSize().getY() >= component.getComponentSize().getY() &&
                 socket.getSocketSize().getZ() >= component.getComponentSize().getZ();
