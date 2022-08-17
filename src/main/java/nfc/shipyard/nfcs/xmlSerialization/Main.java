@@ -1,7 +1,7 @@
 package nfc.shipyard.nfcs.xmlSerialization;
 
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import nfc.shipyard.nfcs.xmlSerialization.Classes.*;
+import nfc.shipyard.nfcs.Classes.*;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -29,15 +29,16 @@ public class Main {
 
         // Create Fleet
         Fleet fleet = new Fleet();
+        renameFleet(fleet);
         modifyFleet(fleet);
+    }
+    public static void renameFleet(Fleet fleet) {
+        Scanner stringScanner = new Scanner(System.in);
+        System.out.println("Enter new fleet name:");
+        fleet.setName(stringScanner.nextLine());
     }
 
     public static void saveFleet(Fleet fleet, String savePath) {
-        Scanner stringScanner = new Scanner(System.in);
-        System.out.println("Fleet name: " + fleet.getName() +
-                "\nEnter new fleet name:");
-        fleet.setName(stringScanner.nextLine());
-
         //remove sockets with no components
         List<Ship> shipList = fleet.getShips();
         for (Ship ship : shipList) {
@@ -57,10 +58,15 @@ public class Main {
         String filename = savePath + fleet.getName() + ".fleet";
         try {
             String formattedFleet = new XmlFormatter().format(xmlMapper.writeValueAsString(fleet));
+            formattedFleet = "<?xml version=\"1.0\"?>\n" + formattedFleet;
+            formattedFleet = formattedFleet.replaceFirst("<Fleet>",
+                    "<Fleet xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">");
+            formattedFleet = formattedFleet.replaceFirst("<SaveID/>", "<SaveID xsi:nil=\"true\" />");
             File file = new File(filename);
             FileUtils.writeStringToFile(file, formattedFleet, StandardCharsets.UTF_8);
+//            file.renameTo(new File(savePath + fleet.getName() + ".fleet")); //doesn't work
             System.out.println(formattedFleet);
-            System.out.println("Created new file: " + file.getName() +
+            System.out.println("Created file: " + file.getName() +
                     "\nFile location: " + file.getAbsolutePath());
 
 

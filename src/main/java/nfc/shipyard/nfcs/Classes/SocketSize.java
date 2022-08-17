@@ -1,4 +1,4 @@
-package nfc.shipyard.nfcs.xmlSerialization.Classes;
+package nfc.shipyard.nfcs.Classes;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

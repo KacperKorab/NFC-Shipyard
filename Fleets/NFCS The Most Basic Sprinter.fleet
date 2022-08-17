@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<Fleet xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>NFCS The Most Basic Sprinter</Name>
+  <Version>2</Version>
+  <TotalPoints>105</TotalPoints>
+  <FactionKey>Stock/Alliance</FactionKey>
+  <Ships>
+    <Ship>
+      <SaveID xsi:nil="true" />
+      <Key>66643ddf-3535-433e-b985-761e09e2b2e6</Key>
+      <Name>The Most Basic Sprinter</Name>
+      <Cost>105</Cost>
+      <Callsign />
+      <Number>660</Number>
+      <SymbolOption>0</SymbolOption>
+      <HullType>Stock/Sprinter Corvette</HullType>
+      <SocketMap>
+        <HullSocket>
+          <Key>wDsRnL5nKkyYvKgD6VcPHg</Key>
+          <ComponentName>Stock/CR10 Antenna</ComponentName>
+        </HullSocket>
+      </SocketMap>
+      <WeaponGroups />
+    </Ship>
+  </Ships>
+</Fleet>
