@@ -8,11 +8,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
+@org.springframework.stereotype.Component
 //@JsonInclude(JsonInclude.Include.NON_NULL)
 public class HullSocket {
     @JsonProperty("Key")
@@ -29,6 +32,8 @@ public class HullSocket {
     private String socketName;
     @JsonIgnore
     private Component component;
+    @JsonIgnore
+    private List<Component> allComponents = Component.getComponents();
 
     public HullSocket(String key, int hullSocketType, SocketSize socketSize, String socketName) {
         this.key = key;

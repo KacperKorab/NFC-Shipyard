@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static nfc.shipyard.nfcs.Classes.Fleet.saveFleet;
+
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -38,44 +40,7 @@ public class Main {
         fleet.setName(stringScanner.nextLine());
     }
 
-    public static void saveFleet(Fleet fleet, String savePath) {
-        //remove sockets with no components
-        List<Ship> shipList = fleet.getShips();
-        for (Ship ship : shipList) {
-            fleet.setTotalPoints(fleet.getTotalPoints() + ship.getCost());
-            List<HullSocket> socketList = ship.getSockets();
-            List<HullSocket> filledSockets = new ArrayList<>();
-            for (HullSocket socket : socketList) {
-                if (socket.getComponentName() != null) {
-                    filledSockets.add(socket);
-                }
-            }
-            ship.setSockets(filledSockets);
-        }
-        fleet.setShips(shipList);
 
-        XmlMapper xmlMapper = new XmlMapper();
-        String filename = savePath + fleet.getName() + ".fleet";
-        try {
-            String formattedFleet = new XmlFormatter().format(xmlMapper.writeValueAsString(fleet));
-            formattedFleet = "<?xml version=\"1.0\"?>\n" + formattedFleet;
-            formattedFleet = formattedFleet.replaceFirst("<Fleet>",
-                    "<Fleet xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">");
-            formattedFleet = formattedFleet.replaceFirst("<SaveID/>", "<SaveID xsi:nil=\"true\" />");
-            File file = new File(filename);
-            FileUtils.writeStringToFile(file, formattedFleet, StandardCharsets.UTF_8);
-//            file.renameTo(new File(savePath + fleet.getName() + ".fleet")); //doesn't work
-            System.out.println(formattedFleet);
-            System.out.println("Created file: " + file.getName() +
-                    "\nFile location: " + file.getAbsolutePath());
-
-
-        }
-        catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-    }
 
     public static void modifyFleet(Fleet fleet) {
         /*

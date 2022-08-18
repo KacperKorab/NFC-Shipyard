@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Getter
 @Setter
@@ -52,6 +53,15 @@ public class Ship {
     @JsonIgnore
     private String[] availableHullTypes =
             {"Stock/Sprinter Corvette"};
+
+    public static void fillShip(Ship ship, String hullType) {
+        ship.setKey(generateShipKey());
+        Random random = new Random();
+        ship.setNumber(random.nextInt(999-1));
+//        ship.setCost(100);
+        ship.setHullType(hullType);
+        ship.setSockets(Ship.generateSocketMap(hullType));
+    }
 
     public static String generateShipKey() {
         Generex generex = new Generex("([0-9]|[a-f])");

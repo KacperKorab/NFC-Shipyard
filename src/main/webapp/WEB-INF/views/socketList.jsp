@@ -8,10 +8,11 @@
 <%--    <input type="submit" value="Submit">--%>
 <%--</form:form>--%>
 <table>
-    <c:forEach items="${fleet.ships}" var="ship" varStatus="status">
+    <c:forEach items="${ship.sockets}" var="socket" varStatus="status">
         <tr>
-            <td><c:out value="${status.count} : ${ship.name} - ${ship.hullType}" /></td>
-            <td><a href="/shipList/socketList?shipId=${status.count}">Modify</a></td>
+            <td><c:out value="${status.count} :"/></td>
+            <td><a href="/shipList/socketList/socket?shipId=${shipId}&socketId=${status.count}">Modify</a></td>
+            <td><c:out value="${socket.socketName} - ${socket.componentName}" /></td>
         </tr>
     </c:forEach>
 </table>

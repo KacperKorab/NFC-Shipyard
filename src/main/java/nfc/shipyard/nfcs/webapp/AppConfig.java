@@ -2,6 +2,7 @@ package nfc.shipyard.nfcs.webapp;
 
 import nfc.shipyard.nfcs.Classes.Component;
 import nfc.shipyard.nfcs.Classes.Fleet;
+import nfc.shipyard.nfcs.Classes.HullSocket;
 import nfc.shipyard.nfcs.Classes.Ship;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -26,4 +27,9 @@ public class AppConfig implements WebMvcConfigurer {
     public Component component(){
         return new Component();
     }
+    @Bean
+    HullSocket hullSocket(){
+        return new HullSocket();
+    }
+
 }

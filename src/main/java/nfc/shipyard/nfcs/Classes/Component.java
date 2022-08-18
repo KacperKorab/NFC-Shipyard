@@ -34,8 +34,8 @@ public class Component {
 
     public static List<Component> getComponents() {
         List<Component> components = new ArrayList<>();
-//        components.add(new Component("Remove", 0, 0,
-//                0, 0, new SocketSize(0, 0, 0)));
+        components.add(new Component("null", 0, 0,
+                0, 0, new SocketSize(0, 0, 0)));
 
         //Communications
         components.add(new Component("CR10 Antenna", 1,

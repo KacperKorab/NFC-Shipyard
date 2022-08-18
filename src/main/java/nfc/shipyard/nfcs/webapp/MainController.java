@@ -14,13 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static nfc.shipyard.nfcs.Classes.Ship.fillShip;
 import static nfc.shipyard.nfcs.Classes.Ship.generateShipKey;
 
-@Controller
+//@Controller
 public class MainController {
 
     private final Fleet fleet;
-    private final List<Component> allComponents = Component.getComponents();
+    private final List<Component> allComponents = new ArrayList<>(Component.getComponents());
 
     public MainController(Fleet fleet) {
         this.fleet = fleet;
@@ -53,6 +54,7 @@ public class MainController {
         return "index";
     }
 
+
     //Add Ship
     @GetMapping("/addSprinter")
     public String shipyardAddShipForm(Model model) {
@@ -62,15 +64,6 @@ public class MainController {
         model.addAttribute("allComponents", allComponents);
         model.addAttribute("fleet", fleet);
         return "addSprinter";
-    }
-
-    private void fillShip(Ship ship, String hullType) {
-        ship.setKey(generateShipKey());
-        Random random = new Random();
-        ship.setNumber(random.nextInt(999-1));
-        ship.setCost(100);
-        ship.setHullType(hullType);
-        ship.setSockets(Ship.generateSocketMap(hullType));
     }
 
     @PostMapping("/addSprinter")
@@ -83,4 +76,21 @@ public class MainController {
         return "addSprinter";
     }
 
+    @GetMapping("/addSprinter2")
+    public String shipyardAddShipForm2(Model model) {
+        Ship ship = new Ship();
+        fillShip(ship, "Stock/Sprinter Corvette");
+        model.addAttribute("ship", ship);
+        model.addAttribute("fleet", fleet);
+        return "addSprinter2";
+    }
+
+    @PostMapping("/addSprinter2")
+    public String shipyardAddShipSubmit2(Ship ship, Model model) {
+        fillShip(ship, "Stock/Sprinter Corvette");
+        model.addAttribute("ship", ship);
+        model.addAttribute("fleet", fleet);
+        fleet.getShips().add(ship);
+        return "addSprinter2";
+    }
 }
