@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<p><a href="/">Back to index2</a></p>
+<p><a href="/">Back to index</a></p>
 <p><a href="/shipList">Ship list</a></p>
 <p><a href="http://localhost:8080/shipList/socketList/socket?shipId=1&socketId=1">Component</a></p>
 <h1>New Sprinter class hull</h1>

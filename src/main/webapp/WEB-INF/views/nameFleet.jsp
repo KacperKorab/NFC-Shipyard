@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Fleet Form</h1>
-<p><a href="/">Back to index2</a></p>
+<p><a href="/">Back to index</a></p>
 <%--@elvariable id="fleet" type="java"--%>
 <h2>Input new fleet name</h2>
 <form:form method="post" modelAttribute="fleet">

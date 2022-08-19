@@ -161,6 +161,7 @@ public class Component {
         //Power plant
         components.add(new Component("FR3300 Micro Reactor", 3,
                 10, 2250, -5, new SocketSize(3, 3, 3)));
+        //TODO fix name
         components.add(new Component("FR3300 Micro Reactor", 3,
                 10, 4200, -10, new SocketSize(5, 5, 5)));
         

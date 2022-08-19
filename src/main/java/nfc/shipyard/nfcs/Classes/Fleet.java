@@ -1,15 +1,19 @@
 package nfc.shipyard.nfcs.Classes;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import nfc.shipyard.nfcs.xmlSerialization.XmlFormatter;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -23,20 +27,37 @@ import static nfc.shipyard.nfcs.Classes.Ship.generateSocketMap;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Component
+@Entity
+@Table(name = "Fleets")
 public class Fleet {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
+    private Long id;
 
     @JsonProperty("Name")
     private String name;
+
     @JsonProperty("Version")
+    @Transient
     private int version = 2;
+
     @JsonProperty("TotalPoints")
+    @Transient
     private int totalPoints = 0;
+
     @JsonProperty("FactionKey")
+    @Transient
     private String factionKey = "Stock/Alliance";
+
     @JsonProperty("Ship")
     @JacksonXmlElementWrapper(localName = "Ships")
+    @Transient
     private List<Ship> ships = new ArrayList<>();
 
     public static void saveFleet(Fleet fleet, String savePath) {

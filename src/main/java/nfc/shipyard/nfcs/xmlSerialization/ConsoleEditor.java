@@ -1,12 +1,8 @@
 package nfc.shipyard.nfcs.xmlSerialization;
 
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import nfc.shipyard.nfcs.Classes.*;
-import org.apache.commons.io.FileUtils;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,7 +10,7 @@ import java.util.Scanner;
 import static nfc.shipyard.nfcs.Classes.Fleet.saveFleet;
 
 
-public class Main {
+public class ConsoleEditor {
     public static void main(String[] args) throws IOException {
         /*// Load fleet from file and modify
         File file = new File("Fleets/NFCS Sprinter.fleet");

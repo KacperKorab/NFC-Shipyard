@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<p><a href="/">Back to index2</a></p>
+<p><a href="/">Back to index</a></p>
 <h1>Nebulous: Fleet Command Shipyard</h1>
 <p>Fleet name: ${fleet.name}</p>
 <%--@elvariable id="shipChoice" type="java"--%>
